@@ -1,0 +1,56 @@
+steps:
+
+- id: Build Controller Image
+  name: 'hashicorp/packer'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","image_name=${_CONTROLLER_IMAGE_NAME}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","base_image=${_CONTROLLER_BASE_IMAGE}",
+        "-var","base_image_project=${_CONTROLLER_BASE_IMAGE_PROJECT}",
+        'controller/packer.json']
+  waitFor: ["-"]
+
+- id: Build Login Image
+  name: 'hashicorp/packer'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","image_name=${_LOGIN_IMAGE_NAME}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","base_image=${_LOGIN_BASE_IMAGE}",
+        "-var","base_image_project=${_LOGIN_BASE_IMAGE_PROJECT}",
+        'login/packer.json']
+  waitFor: ["-"]
+
+- id: Build Compute Image
+  name: 'hashicorp/packer'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","image_name=${_COMPUTE_IMAGE_NAME}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","base_image=${_COMPUTE_BASE_IMAGE}",
+        "-var","base_image_project=${_COMPUTE_BASE_IMAGE_PROJECT}",
+        'compute/packer.json']
+  waitFor: ["-"]
+
+substitutions:
+    _ZONE : 'us-central1-f' # default value
+    _SUBNETWORK : 'default'
+    _CONTROLLER_IMAGE_BASE: 'fluid-slurm-gcp-controller-centos-v2-6'
+    _CONTROLLER_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
+    _CONTROLLER_IMAGE_NAME: 'fluid-slurm-gcp-controller-os-hack-dev'
+    _LOGIN_IMAGE_BASE: 'fluid-slurm-gcp-login-centos-v2-6'
+    _LOGIN_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
+    _LOGIN_IMAGE_NAME: 'fluid-slurm-gcp-login-os-hack-dev'
+    _COMPUTE_IMAGE_BASE: 'fluid-slurm-gcp-compute-centos-v2-6'
+    _COMPUTE_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
+    _COMPUTE_IMAGE_NAME: 'fluid-slurm-gcp-compute-os-hack-dev'
+
+
+timeout : 5400s

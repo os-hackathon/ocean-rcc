@@ -1,0 +1,37 @@
+{
+  "variables": {
+    "project_id": "",
+    "zone": "",
+    "image_name":"fluid-slurm-gcp-moffit-login",
+    "subnet": "default",
+    "base_image":"fluid-slurm-gcp-login-centos-v2-6",
+    "base_image_project":"fluid-cluster-ops"
+  },
+  "builders": [{
+    "type": "googlecompute",
+    "project_id": "{{user `project_id`}}",
+    "source_image_family": "{{user `base_image`}}",
+    "source_image_project_id": "{{user `base_image_project`}}",
+    "disk_size": "100",
+    "zone": "{{user `zone`}}",
+    "subnetwork" :"{{user `subnet`}}",
+    "image_family": "{{user `image_name`}}",
+    "image_name": "{{user `image_name`}}",
+    "instance_name":"{{user `image_name`}}-image-node-{{timestamp}}",
+    "tags":["cloudbuild"],
+    "ssh_username": "packer"
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./login/sysctl.conf",
+      "destination": "/etc/sysctl.conf"
+    },
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E /bin/bash '{{ .Path }}'",
+      "script": "./login/setup.sh"
+    }
+  ]
+}
+
