@@ -12,7 +12,7 @@ yum clean all
 yum -y update
 
 # Install cudnn
-yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/${OS}/x86_64/cuda-${OS}.repo
+yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
 yum clean all
 yum -y update
 yum install -y libcudnn8
