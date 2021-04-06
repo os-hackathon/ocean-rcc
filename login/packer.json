@@ -24,8 +24,12 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "./login/sysctl.conf",
-      "destination": "/etc/sysctl.conf"
+      "source": "./login/etc",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo mv /tmp/etc/ssh/sshd_config /etc/ssh/sshd_config"]
     },
     {
       "type": "shell",
