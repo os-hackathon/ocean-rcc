@@ -42,4 +42,4 @@ substitutions:
     _COMPUTE_IMAGE_NAME: 'oshpc-compute-centos'
 
 
-timeout : 5400s
+timeout : 7200s
