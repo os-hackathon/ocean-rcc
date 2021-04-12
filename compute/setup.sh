@@ -13,7 +13,7 @@ yum install -y opencv opencv-devel opencv-python
 
 
 # Revert to ROCm 4.0.1
-yum remove -y rocm-dev
+yum remove -y rocm-dev hip-base llvm-amdgpu
 cat > /etc/yum.repos.d/rocm.repo  << EOL
 [ROCm]
 name=ROCm
