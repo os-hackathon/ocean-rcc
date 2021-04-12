@@ -10,19 +10,3 @@ yum install -y libcudnn8-devel
 
 # Install OpenCV
 yum install -y opencv opencv-devel opencv-python
-
-
-# Revert to ROCm 4.0.1
-yum remove -y rocm-dev hip-base llvm-amdgpu
-cat > /etc/yum.repos.d/rocm.repo  << EOL
-[ROCm]
-name=ROCm
-baseurl=https://repo.radeon.com/rocm/yum/4.0.1
-enabled=1
-gpgcheck=1
-gpgkey=https://repo.radeon.com/rocm/rocm.gpg.key
-EOL
-yum clean all
-yum update -y
-yum install -y rocm-dev
-

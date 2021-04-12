@@ -16,7 +16,7 @@ steps:
 substitutions:
     _ZONE: 'us-central1-f' # default value
     _SUBNETWORK: 'default'
-    _COMPUTE_IMAGE_BASE: 'fluid-slurm-gcp-compute-centos-dev'
+    _COMPUTE_IMAGE_BASE: 'fluid-slurm-gcp-compute-centos-v2-6'
     _COMPUTE_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
     _COMPUTE_IMAGE_NAME: 'oshpc-compute-centos'
 
