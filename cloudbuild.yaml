@@ -13,12 +13,29 @@ steps:
         'compute/packer.json']
   waitFor: ["-"]
 
+- id: Build Login Image
+  name: 'hashicorp/packer'
+  args: ["build",
+        "-force",
+        "-var","project_id=$PROJECT_ID",
+        "-var","zone=$_ZONE",
+        "-var","image_name=${_LOGIN_IMAGE_NAME}",
+        "-var","subnet=${_SUBNETWORK}",
+        "-var","base_image=${_LOGIN_IMAGE_BASE}",
+        "-var","base_image_project=${_LOGIN_IMAGE_BASE_PROJECT}",
+        'compute/packer.json']
+  waitFor: ["-"]
+
 substitutions:
     _ZONE: 'us-central1-f' # default value
     _SUBNETWORK: 'default'
     _COMPUTE_IMAGE_BASE: 'fluid-slurm-gcp-compute-centos-v2-6'
     _COMPUTE_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
     _COMPUTE_IMAGE_NAME: 'oshpc-compute-centos'
+
+    _LOGIN_IMAGE_BASE: 'fluid-slurm-gcp-login-centos-v2-6'
+    _LOGIN_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
+    _LOGIN_IMAGE_NAME: 'oshpc-login-centos'
 
 
 timeout : 7200s

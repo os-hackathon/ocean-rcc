@@ -10,9 +10,9 @@
   "builders": [{
     "type": "googlecompute",
     "project_id": "{{user `project_id`}}",
-    "source_image_family": "{{user `base_image`}}",
+    "source_image": "{{user `base_image`}}",
     "source_image_project_id": "{{user `base_image_project`}}",
-    "disk_size": "100",
+    "disk_size": "30",
     "zone": "{{user `zone`}}",
     "subnetwork" :"{{user `subnet`}}",
     "image_family": "{{user `image_name`}}",
