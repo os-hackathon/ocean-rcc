@@ -6,6 +6,7 @@ yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda
 yum clean all
 yum install -y libcudnn8
 yum install -y libcudnn8-devel
+yum install -y libcutensor1 libcutensor-devel libcutensor-doc
 
 # Install OpenCV
 yum install -y opencv opencv-devel opencv-python
