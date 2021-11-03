@@ -33,11 +33,6 @@
       "destination": "/tmp/"
     },
     {
-      "type": "file",
-      "source": "cluster-services",
-      "destination": "/tmp/"
-    },
-    {
       "type": "shell",
       "inline":[ "sudo mv /tmp/motd /etc/motd"]
     },
