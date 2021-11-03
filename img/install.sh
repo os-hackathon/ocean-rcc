@@ -29,4 +29,6 @@ if [[ -n "$SPACK_BUCKET" ]]; then
     spack mirror rm RCC
 fi
 
+spack gc -y
+
 cat /dev/null > /var/log/messages
