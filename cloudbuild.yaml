@@ -1,41 +1,23 @@
 steps:
 
-- id: Build Compute Image
-  name: 'hashicorp/packer'
+- id: Build Image
+  name: 'hashicorp/packer:latest'
   args: ["build",
         "-force",
         "-var","project_id=$PROJECT_ID",
         "-var","zone=$_ZONE",
-        "-var","image_name=${_COMPUTE_IMAGE_NAME}",
+        "-var","image_name=${_IMAGE_FAMILY}-${SHORT_SHA}",
+        "-var","image_family=${_IMAGE_FAMILY}",
         "-var","subnet=${_SUBNETWORK}",
-        "-var","base_image=${_COMPUTE_IMAGE_BASE}",
-        "-var","base_image_project=${_COMPUTE_IMAGE_BASE_PROJECT}",
-        'compute/packer.json']
-  waitFor: ["-"]
+        "-var","zone=${_ZONE}",
+        "img/packer.json"]
 
-- id: Build Login Image
-  name: 'hashicorp/packer'
-  args: ["build",
-        "-force",
-        "-var","project_id=$PROJECT_ID",
-        "-var","zone=$_ZONE",
-        "-var","image_name=${_LOGIN_IMAGE_NAME}",
-        "-var","subnet=${_SUBNETWORK}",
-        "-var","base_image=${_LOGIN_IMAGE_BASE}",
-        "-var","base_image_project=${_LOGIN_IMAGE_BASE_PROJECT}",
-        'compute/packer.json']
-  waitFor: ["-"]
+# Test the image #
 
 substitutions:
-    _ZONE: 'us-central1-f' # default value
+    _ZONE: 'us-central1-c'
+    _IMAGE_FAMILY: 'waterchange-rcc'
     _SUBNETWORK: 'default'
-    _COMPUTE_IMAGE_BASE: 'fluid-slurm-gcp-compute-centos-v2-6'
-    _COMPUTE_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
-    _COMPUTE_IMAGE_NAME: 'oshpc-compute-centos'
+    _PACKER_JSON: 'img/packer.json'
 
-    _LOGIN_IMAGE_BASE: 'fluid-slurm-gcp-login-centos-v2-6'
-    _LOGIN_IMAGE_BASE_PROJECT: 'fluid-cluster-ops'
-    _LOGIN_IMAGE_NAME: 'oshpc-login-centos'
-
-
-timeout : 7200s
+timeout : 43200s
