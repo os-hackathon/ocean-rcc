@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+source /etc/profile.d/z10_spack_environment.sh
 if [[ -n "$SPACK_BUCKET" ]]; then
         # Add spack mirror #
         spack gpg init

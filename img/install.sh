@@ -16,6 +16,9 @@ spack_install() {
   fi
 }
 
+source /etc/profile.d/z10_spack_environment.sh 
+spack install cmake % gcc@4.8.5
+spack load cmake
 spack load gcc@10.3.0
 git clone https://github.com/ROCmSoftwarePlatform/hipfort /tmp/hipfort
 mkdir /tmp/hipfort/build ; cd /tmp/hipfort/build
