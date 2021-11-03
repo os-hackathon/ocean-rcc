@@ -30,6 +30,29 @@ compute_node_scopes          = [
 ]
 
 partitions = [
+  { name                 = "n1-standard-4"
+    machine_type         = "n1-standard-4"
+    image                = "projects/os-hackathon-fluid-hpc/global/images/family/waterchange-rcc"
+    image_hyperthreads   = true
+    static_node_count    = 0
+    max_node_count       = 25
+    zone                 = "us-west1-b"
+    compute_disk_type    = "pd-standard"
+    compute_disk_size_gb = 100
+    compute_labels       = {}
+    cpu_platform         = null
+    gpu_count            = 0
+    gpu_type             = null
+    gvnic                = false
+    network_storage      = []
+    preemptible_bursting = false
+    vpc_subnet           = null
+    exclusive            = false
+    enable_placement     = false
+    regional_capacity    = false
+    regional_policy      = null
+    instance_template    = null
+  },
   { name                 = "c2-standard-60"
     machine_type         = "c2-standard-60"
     image                = "projects/os-hackathon-fluid-hpc/global/images/family/waterchange-rcc"
