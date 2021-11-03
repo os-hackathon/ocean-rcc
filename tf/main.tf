@@ -1,3 +1,9 @@
+terraform {
+  backend "gcs" {
+    bucket = "os-hackathon-fluid-hpc-tf-states"
+    prefix = "rcc"
+  }
+}
 
 module "rcc_tf" {
   source = "github.com/FluidNumerics/rcc-tf?ref=v3.0.0"
