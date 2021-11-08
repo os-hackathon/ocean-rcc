@@ -22,7 +22,10 @@ spack load cmake
 spack load gcc@10.3.0
 git clone https://github.com/ROCmSoftwarePlatform/hipfort /tmp/hipfort
 mkdir /tmp/hipfort/build ; cd /tmp/hipfort/build
-cmake -DHIPFORT_INSTALL_DIR=/opt/rocm ..
+FC=$(spack location -i gcc@10.3.0)/bin/gfortran \
+cmake -DHIPFORT_INSTALL_DIR=/opt/rocm \
+      -DHIPFORT_COMPILER=$(spack location -i gcc@10.3.0)/bin/gfortran \
+      ..
 make install
 
 if [[ -n "$SPACK_BUCKET" ]]; then
