@@ -16,17 +16,22 @@ spack_install() {
   fi
 }
 
-source /etc/profile.d/z10_spack_environment.sh 
-spack install cmake % gcc@4.8.5
-spack load cmake
-spack load gcc@10.3.0
-git clone https://github.com/ROCmSoftwarePlatform/hipfort /tmp/hipfort
-mkdir /tmp/hipfort/build ; cd /tmp/hipfort/build
-FC=$(spack location -i gcc@10.3.0)/bin/gfortran \
-cmake -DHIPFORT_INSTALL_DIR=/opt/rocm \
-      -DHIPFORT_COMPILER=$(spack location -i gcc@10.3.0)/bin/gfortran \
-      ..
-make install
+
+cat <<EOT >> /opt/spack/etc/spack/packages.yaml
+  hip:
+    buildable: false
+    externals:
+    - spec: hip@4.3.1
+      prefix: /opt/rocm
+EOT
+
+COMPILERS=("gcc@11.2.0"
+           "gcc@10.3.0"
+	   "gcc@9.4.0")
+
+for COMPILER in "${COMPILERS[@]}"; do
+    spack install hipfort@4.3.1 % ${COMPILER} target=x86_64
+done
 
 if [[ -n "$SPACK_BUCKET" ]]; then
     spack mirror rm RCC
