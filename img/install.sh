@@ -30,7 +30,7 @@ COMPILERS=("gcc@11.2.0"
 	   "gcc@9.4.0")
 
 for COMPILER in "${COMPILERS[@]}"; do
-    spack install hipfort@4.3.1 % ${COMPILER} target=x86_64
+    spack_install "hipfort@4.3.1 % ${COMPILER} target=x86_64"
 done
 
 if [[ -n "$SPACK_BUCKET" ]]; then
